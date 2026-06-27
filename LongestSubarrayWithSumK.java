@@ -9,11 +9,14 @@ Topic   : Arrays + Hashing
 Difficulty: Medium
 
 Approach:
-1. Maintain a running prefix sum.
+1. Maintain a running prefix sum while traversing the array.
 2. Store the first occurrence of every prefix sum in a HashMap.
-3. If the current prefix sum equals k, the subarray starts from index 0.
-4. If (prefixSum - k) exists in the HashMap, a subarray with sum k exists.
-5. Update the maximum length accordingly.
+3. If the current prefix sum equals k, then the subarray from
+   index 0 to the current index has sum k.
+4. If (prefixSum - k) exists in the HashMap, then a subarray
+   with sum k exists. Update the maximum length.
+5. Store only the first occurrence of a prefix sum because it
+   gives the longest possible subarray.
 
 Time Complexity : O(n)
 Space Complexity: O(n)
@@ -25,6 +28,7 @@ Author: Anushka Joshi
 public class LongestSubarrayWithSumK {
 
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
 
         // Read array size
@@ -50,21 +54,19 @@ public class LongestSubarrayWithSumK {
             // Update prefix sum
             prefixSum += nums[i];
 
-            // If subarray starts from index 0
+            // Case 1: Subarray starts from index 0
             if (prefixSum == k) {
                 maxLength = i + 1;
             }
 
-            // If (prefixSum - k) exists, update answer
+            // Case 2: Subarray starts after index 0
             if (prefixMap.containsKey(prefixSum - k)) {
                 int length = i - prefixMap.get(prefixSum - k);
                 maxLength = Math.max(maxLength, length);
             }
 
-            // Store first occurrence of prefix sum
-            if (!prefixMap.containsKey(prefixSum)) {
-                prefixMap.put(prefixSum, i);
-            }
+            // Store only the first occurrence of each prefix sum
+            prefixMap.putIfAbsent(prefixSum, i);
         }
 
         System.out.println(maxLength);
