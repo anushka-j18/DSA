@@ -7,8 +7,9 @@ Problem : Reverse Words in a String
 Approach:
 1. Remove leading and trailing spaces.
 2. Split the string using one or more spaces.
-3. Traverse the words in reverse order.
-4. Append each word separated by a single space.
+3. Traverse the words array from the end to the beginning.
+4. Append each word to the result with a single space.
+5. Print the final reversed string.
 
 Time Complexity : O(n)
 Space Complexity: O(n)
@@ -23,7 +24,7 @@ public class ReverseWordsInString {
 
         Scanner sc = new Scanner(System.in);
 
-        // Read the entire input line
+        // Read the complete input line
         String s = sc.nextLine();
 
         // Remove leading and trailing spaces
